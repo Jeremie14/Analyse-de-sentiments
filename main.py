@@ -22,3 +22,7 @@ for mot in mots_tokenises:
         mots_finaux.append(mot)
 
 print(mots_finaux)
+
+with open('emotionsEn.txt', 'r') as file:
+    for ligne in file:
+        ligne_nettoye = ligne.replace('\')
