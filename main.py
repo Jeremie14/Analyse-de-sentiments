@@ -1,4 +1,6 @@
 import string
+from collections import Counter
+import matplotlib.pyplot as plt
 
 texte = open('lecture.txt', encoding='utf-8').read()
 petite_lettre = texte.lower()
@@ -21,8 +23,22 @@ for mot in mots_tokenises:
     if mot not in stop_words:
         mots_finaux.append(mot)
 
-print(mots_finaux)
+liste_emotions = []
 
 with open('emotionsEn.txt', 'r') as file:
     for ligne in file:
-        ligne_nettoye = ligne.replace('\')
+        ligne_nettoye = ligne.replace('\n', '').replace(',', '').replace("'", '').strip()
+        mot, emotion = ligne_nettoye.split(':')
+
+        if mot in mots_finaux:
+            liste_emotions.append(emotion)
+
+print(liste_emotions)
+x = Counter(liste_emotions)
+print(x)
+
+fig, axl = plt.subplots()
+axl.bar(x.keys(), x.values())
+fig.autofmt_xdate()
+plt.show()
+
